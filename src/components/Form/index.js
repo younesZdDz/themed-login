@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {  useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
@@ -14,33 +14,33 @@ import Select from "@material-ui/core/Select";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
 import { LanguageContext } from '../../contexts/LanguageContext';
-class Form extends Component {
 
-    static contextType = LanguageContext;
+const languages =  {
+    english: {
+        signIn: 'Sign in',
+        email: 'Email',
+        password: 'Password',
+        rememberMe: 'remember me',
+    },
+    french: {
+        signIn: 'Connecter',
+        email: 'Adresse électronique',
+        password: 'Mot de passe',
+        rememberMe: 'se rappeler de moi',
+    },
+    arabic: {
+        signIn: 'تسجيل الدخول',
+        email: 'عنوان البريد الإلكتروني',
+        password: 'كلمه السر',
+        rememberMe: 'تذكرنى'
+    }
+}
+
+function Form (props){
     
-    render() {
-        const { classes } = this.props;
-        const languages =  {
-            english: {
-                signIn: 'Sign in',
-                email: 'Email',
-                password: 'Password',
-                rememberMe: 'remember me',
-            },
-            french: {
-                signIn: 'Connecter',
-                email: 'Adresse électronique',
-                password: 'Mot de passe',
-                rememberMe: 'se rappeler de moi',
-            },
-            arabic: {
-                signIn: 'تسجيل الدخول',
-                email: 'عنوان البريد الإلكتروني',
-                password: 'كلمه السر',
-                rememberMe: 'تذكرنى'
-            }
-        }
-        const {signIn, email, password, rememberMe} = languages[this.context.language];
+        const { classes } = props;
+        const {language, changeLanguage} = useContext(LanguageContext);
+        const {signIn, email, password, rememberMe} = languages[language];
         return (
             <main className={classes.main}>
                 <Paper className={classes.paper}>
@@ -48,7 +48,7 @@ class Form extends Component {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography variant='h5'>{signIn}</Typography>
-                    <Select value='english' onChange={this.context.changeLanguage}>
+                    <Select value={language} onChange={changeLanguage}>
                         <MenuItem value='french'>French</MenuItem>
                         <MenuItem value='english'>English</MenuItem>
                         <MenuItem value='arabic'>Arabic </MenuItem>
@@ -68,7 +68,7 @@ class Form extends Component {
                 </Paper>
             </main>
         );
-    }
+    
 }
 
 export default withStyles(styles)(Form);

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,26 +9,42 @@ import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 import styles from './styles';
 import { ThemeContext } from '../../contexts/ThemeContext';
+import { LanguageContext } from '../../contexts/LanguageContext';
+const content = {
+    english: {
+        search: "Search",
+        flag: "🇬🇧"
+    },
+    french: {
+        search: "Chercher",
+        flag: "🇫🇷"
+    },
+    arabic: {
+        search: "ابحث",
+        flag: "🇩🇿"
+    }
+  };
 
-class NavBar extends Component{
-    static contextType = ThemeContext; 
-    render(){
-        const { classes } = this.props;
+function NavBar (props){
+        const { classes } = props;
+        const { language } = useContext(LanguageContext);
+        const {isDarkMode, toggleTheme} = useContext(ThemeContext);
+        const { search, flag } = content[language];    
         return(
             <div className={classes.root}>
-                <AppBar position='static' color={this.context.isDarkMode ? 'default' : 'primary'}>
+                <AppBar position='static' color={isDarkMode ? 'default' : 'primary'}>
                     <Toolbar> 
                         <IconButton className={classes.menuButton} color='inherit '>
-                        <span role='img' aria-label='french flag'>🇫🇷</span>
+                        <span role='img' aria-label='french flag'>{flag}</span>
                         </IconButton>
-                        <Typography className={classes.title} variant='h6' color='inherit'>App title</Typography>
-                        <Switch />
+                        <Typography className={classes.title} variant='h6' color='inherit'>Login with context</Typography>
+                        <Switch onChange={toggleTheme} />
                         <div className={classes.grow} />
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
                             </div>
-                            <InputBase placeholder='Search...'  classes={{
+                            <InputBase placeholder={`${search}...`}  classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput 
                             }}/>
@@ -37,7 +53,7 @@ class NavBar extends Component{
                 </AppBar>
             </div>
         )
-    }
+    
 }
 
 export default withStyles(styles)(NavBar);
