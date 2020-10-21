@@ -2,8 +2,8 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import Form from './components/Form';
 import Page from './components/Page';
-import { ThemeProvider } from './contexts/ThemeContext'
-import { LanguageProvider } from './contexts/LanguageContext'
+import { ThemeProvider } from './contexts/theme.context'
+import { LanguageProvider } from './contexts/language.context'
 
 function App() {
   return (

@@ -8,8 +8,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 import styles from './styles';
-import { ThemeContext } from '../../contexts/ThemeContext';
-import { LanguageContext } from '../../contexts/LanguageContext';
+import { ThemeContext } from '../../contexts/theme.context';
+import { LanguageContext } from '../../contexts/language.context';
 const content = {
     english: {
         search: "Search",

@@ -13,7 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import withStyles from "@material-ui/core/styles/withStyles";
 import styles from "./styles";
-import { LanguageContext } from '../../contexts/LanguageContext';
+import { LanguageContext } from '../../contexts/language.context';
 
 const languages =  {
     english: {
@@ -53,7 +53,7 @@ function Form (props){
                         <MenuItem value='english'>English</MenuItem>
                         <MenuItem value='arabic'>Arabic </MenuItem>
                     </Select>
-                    <form className={classes.form}>
+                    <form className={classes.form} onSubmit={(e) => {e.preventDefault()}}>
                         <FormControl margin='normal' required fullWidth>
                             <InputLabel htmlFor='email'>{email}</InputLabel>
                             <Input id='email' name='email' autoFocus></Input>
